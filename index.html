@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chat UI</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #e5ddd5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .chat-container {
+        width: 360px;
+        height: 600px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .chat-header {
+        background: #075e54;
+        color: white;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .chat-header img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .chat-header .info h4 {
+        font-size: 15px;
+    }
+
+    .chat-header .info span {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 12px;
+        background: #efeae2;
+        overflow-y: auto;
+    }
+
+    .message {
+        max-width: 70%;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .received {
+        background: #fff;
+        align-self: flex-start;
+        border-top-left-radius: 0;
+    }
+
+    .sent {
+        background: #dcf8c6;
+        align-self: flex-end;
+        border-top-right-radius: 0;
+    }
+
+    .time {
+        font-size: 10px;
+        color: #555;
+        text-align: right;
+        margin-top: 4px;
+    }
+
+    .chat-input {
+        display: flex;
+        padding: 10px;
+        background: #f0f0f0;
+        gap: 8px;
+    }
+
+    .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+    }
+
+    .chat-input button {
+        background: #075e54;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <img src="data:image/jpeg;base64,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" alt="Profile">
+        <div class="info">
+            <h4>R.CHAN</h4>
+            <span>online</span>
+        </div>
+    </div>
+
+    <div class="chat-messages">
+        <div class="message received">
+            Hi  How are you
+            <div class="time">10:01 AM</div>
+        </div>
+
+        <div class="message sent">
+            I'm good What about you
+            <div class="time">10:02 AM</div>
+        </div>
+
+        <div class="message received">
+            ok bye 😊
+            <div class="time">10:03 AM</div>
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" placeholder="Type a message...">
+        <button>➤</button>
+    </div>
+</div>
+
+</body>
+</html>
